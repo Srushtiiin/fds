@@ -1,0 +1,88 @@
+list = []
+
+n = int(input("Enter no of students SE :"))
+
+
+for i in range(0,n):
+    student = input("Enter name of students : ")
+    list.append(student)
+
+print(list)
+
+
+cricket = []
+
+n = int(input("Enter no of students who plays cricket :"))
+
+for i in range(0,n):
+    student = input("Enter name of students who plays cricket : ")
+    cricket.append(student)
+
+print(cricket)
+
+
+badminton = []
+
+n = int(input("Enter no of students who plays badminton :"))
+
+for i in range(0,n):
+    student = input("Enter name of students who plays badminton: ")
+    badminton.append(student)
+
+print(badminton)
+
+
+football = []
+
+n = int(input("Enter no of students who plays football :"))
+
+for i in range(0,n):
+    student = input("Enter name of students who plays football : ")
+    football.append(student)
+
+print(football)
+
+
+#A
+def intersection(cricket, badminton):
+    res = []
+    for student in cricket:
+        if student in badminton:
+            res.append(student)
+    return res
+result = intersection(cricket, badminton)
+
+print("a)List of students who play both cricket and badminton :",result)
+
+
+#B
+def union(cricket, badminton):
+    res = []
+    for student in cricket:
+        if student not in badminton:
+            res.append(student)
+    for student in badminton:
+        if student not in cricket:
+            res.append(student)
+    return res
+result1 = union(cricket, badminton)
+print("b)List of students who play either cricket or badminton but not both :", result1)
+
+
+#C
+def diff(football, badminton, cricket):
+    difference = [item for item in football if item not in badminton and item not in cricket]
+    return difference
+result3 = diff(football, badminton, cricket)
+print("c)Number of students who play neither cricket nor badminton :",result3)
+
+
+#D
+def inter(cricket, football, badminton):
+    res = []
+    for student in cricket:
+        if student in football and student not in badminton :
+            res.append(student)
+    return res
+result4 = inter(cricket, football, badminton)
+print("d)Number of students who play cricket and football but not badminton :", result4)
