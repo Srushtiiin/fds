@@ -1,0 +1,160 @@
+/*
+Department of Computer Engineering has student's club named 'Pinnacle Club'. Students of
+second, third and
+Similarly one may cancel the membership of club. First node is reserved for president of
+club and last node is reserved for secretary of club. Write C++ program to maintain club
+member's information using singly linked list. Store student PRN and Name. Write functions
+to:
+1. Add and delete the members as well as president or even secretary.
+2. Compute total number of members of club
+3. Display members
+4. Two linked lists exist for two divisions. Concatenate two lists.
+*/
+
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+// Node structure to represent a member
+struct Member {
+    char prn[20];
+    char name[50];
+    Member* next;
+};
+
+// Linked List class
+class ClubLinkedList {
+private:
+    Member* head;
+
+public:
+    // Constructor
+    ClubLinkedList() {
+        head = nullptr;
+    }
+
+    // Function to add a new member
+    void addMember(const char prn[], const char name[]) {
+        Member* newMember = new Member;
+        strcpy(newMember->prn, prn);
+        strcpy(newMember->name, name);
+        newMember->next = nullptr;
+
+        if (head == nullptr) {
+            // List is empty, add as the first member
+            head = newMember;
+        } else {
+            // Traverse to the end and add the new member
+            Member* temp = head;
+            while (temp->next != nullptr) {
+                temp = temp->next;
+            }
+            temp->next = newMember;
+        }
+    }
+
+    // Function to delete a member by PRN
+    void deleteMember(const char prn[]) {
+        Member* current = head;
+        Member* previous = nullptr;
+
+        // Traverse the list to find the member to delete
+        while (current != nullptr && strcmp(current->prn, prn) != 0) {
+            previous = current;
+            current = current->next;
+        }
+
+        if (current == nullptr) {
+            cout << "Member with PRN " << prn << " not found." << endl;
+            return;
+        }
+
+        // Delete the member
+        if (previous == nullptr) {
+            // Deleting the first member
+            head = current->next;
+        } else {
+            previous->next = current->next;
+        }
+
+        delete current;
+        cout << "Member with PRN " << prn << " deleted successfully." << endl;
+    }
+
+    // Function to compute total number of members
+    int getTotalMembers() {
+        int count = 0;
+        Member* temp = head;
+        while (temp != nullptr) {
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+
+    // Function to display all members
+    void displayMembers() {
+        Member* temp = head;
+        while (temp != nullptr) {
+            cout << "PRN: " << temp->prn << ", Name: " << temp->name << endl;
+            temp = temp->next;
+        }
+    }
+
+    // Function to concatenate two lists
+    void concatenateLists(ClubLinkedList& otherList) {
+        if (head == nullptr) {
+            // If the current list is empty, simply set the head to the head of the other list
+            head = otherList.head;
+        } else {
+            // Traverse to the end of the current list
+            Member* temp = head;
+            while (temp->next != nullptr) {
+                temp = temp->next;
+            }
+
+            // Append the other list to the end of the current list
+            temp->next = otherList.head;
+        }
+        cout << "Lists concatenated successfully." << endl;
+    }
+};
+
+int main() {
+    // Create two linked lists for two divisions
+    ClubLinkedList division1, division2;
+
+    // Add members to the first division
+    division1.addMember("PRN1", "Student1");
+    division1.addMember("PRN2", "Student2");
+    division1.addMember("PRN3", "Student3");
+
+    // Add members to the second division
+    division2.addMember("PRN4", "Student4");
+    division2.addMember("PRN5", "Student5");
+    division2.addMember("PRN6", "Student6");
+
+    // Display members of each division
+    cout << "Members of Division 1:" << endl;
+    division1.displayMembers();
+
+    cout << "\nMembers of Division 2:" << endl;
+    division2.displayMembers();
+
+    // Concatenate two lists
+    division1.concatenateLists(division2);
+
+    // Display the concatenated list
+    cout << "\nConcatenated List:" << endl;
+    division1.displayMembers();
+
+    // Delete a member from the concatenated list
+    division1.deleteMember("PRN2");
+
+    // Display the updated list after deletion
+    cout << "\nUpdated List:" << endl;
+    division1.displayMembers();
+
+    return 0;
+}
