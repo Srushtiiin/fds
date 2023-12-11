@@ -5,7 +5,6 @@
 
 using namespace std;
 
-// Function to remove punctuation and convert to lowercase
 string removePunctuation(string input) {
     string result;
     for (char ch : input) {
@@ -16,16 +15,13 @@ string removePunctuation(string input) {
     return result;
 }
 
-// Function to check if a string is a palindrome
 bool isPalindrome(string input) {
     stack<char> charStack;
 
-    // Push characters onto the stack
     for (char ch : input) {
         charStack.push(ch);
     }
 
-    // Pop characters from the stack and compare with the original string
     for (char ch : input) {
         if (charStack.top() != ch) {
             return false;
@@ -36,7 +32,6 @@ bool isPalindrome(string input) {
     return true;
 }
 
-// Function to print the original and reversed string using a stack
 void printOriginalAndReversed(string original, string reversed) {
     cout << "Original String: " << original << endl;
     cout << "Reversed String: " << reversed << endl;
