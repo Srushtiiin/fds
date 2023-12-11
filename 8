@@ -3,7 +3,6 @@
 
 using namespace std;
 
-// Node structure to represent a student
 struct Student {
     char rollNumber[20];
     char name[50];
@@ -12,7 +11,6 @@ struct Student {
     Student* next;
 };
 
-// Linked List class
 class StudentLinkedList {
 private:
     Student* head;
@@ -23,7 +21,6 @@ public:
         head = nullptr;
     }
 
-    // Function to add a new student
     void addStudent(const char rollNumber[], const char name[], bool likesVanilla, bool likesButterscotch) {
         Student* newStudent = new Student;
         strcpy(newStudent->rollNumber, rollNumber);
@@ -33,10 +30,8 @@ public:
         newStudent->next = nullptr;
 
         if (head == nullptr) {
-            // List is empty, add as the first student
             head = newStudent;
         } else {
-            // Traverse to the end and add the new student
             Student* temp = head;
             while (temp->next != nullptr) {
                 temp = temp->next;
@@ -45,7 +40,6 @@ public:
         }
     }
 
-    // Function to display students
     void displayStudents() {
         Student* temp = head;
         while (temp != nullptr) {
@@ -58,7 +52,6 @@ public:
         }
     }
 
-    // Function to compute and display set of students who like either vanilla or butterscotch or both
     void displayEitherVanillaOrButterscotch() {
         cout << "Students who like either vanilla or butterscotch or both:" << endl;
         Student* temp = head;
@@ -70,7 +63,6 @@ public:
         }
     }
 
-    // Function to compute and display set of students who like both vanilla and butterscotch
     void displayBothVanillaAndButterscotch() {
         cout << "Students who like both vanilla and butterscotch:" << endl;
         Student* temp = head;
@@ -82,7 +74,6 @@ public:
         }
     }
 
-    // Function to compute and display number of students who like neither vanilla nor butterscotch
     void displayNeitherVanillaNorButterscotch() {
         int count = 0;
         Student* temp = head;
@@ -98,26 +89,20 @@ public:
 };
 
 int main() {
-    // Create a linked list for students
     StudentLinkedList studentsList;
 
-    // Add students to the list
     studentsList.addStudent("R001", "John", true, false);
     studentsList.addStudent("R002", "Alice", false, true);
     studentsList.addStudent("R003", "Bob", true, true);
     studentsList.addStudent("R004", "Eva", false, false);
 
-    // Display all students
     cout << "All Students:" << endl;
     studentsList.displayStudents();
 
-    // Display students who like either vanilla or butterscotch or both
     studentsList.displayEitherVanillaOrButterscotch();
 
-    // Display students who like both vanilla and butterscotch
     studentsList.displayBothVanillaAndButterscotch();
 
-    // Display number of students who like neither vanilla nor butterscotch
     studentsList.displayNeitherVanillaNorButterscotch();
 
     return 0;
