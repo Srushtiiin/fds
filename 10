@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stack>
-#include <cctype> // For isdigit function
+#include <cctype>
 
 using namespace std;
 
