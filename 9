@@ -1,0 +1,64 @@
+#include <iostream>
+#include <stack>
+#include <algorithm>
+#include <cctype>
+
+using namespace std;
+
+// Function to remove punctuation and convert to lowercase
+string removePunctuation(string input) {
+    string result;
+    for (char ch : input) {
+        if (isalpha(ch)) {
+            result += tolower(ch);
+        }
+    }
+    return result;
+}
+
+// Function to check if a string is a palindrome
+bool isPalindrome(string input) {
+    stack<char> charStack;
+
+    // Push characters onto the stack
+    for (char ch : input) {
+        charStack.push(ch);
+    }
+
+    // Pop characters from the stack and compare with the original string
+    for (char ch : input) {
+        if (charStack.top() != ch) {
+            return false;
+        }
+        charStack.pop();
+    }
+
+    return true;
+}
+
+// Function to print the original and reversed string using a stack
+void printOriginalAndReversed(string original, string reversed) {
+    cout << "Original String: " << original << endl;
+    cout << "Reversed String: " << reversed << endl;
+}
+
+int main() {
+    string input;
+
+    cout << "Enter a string: ";
+    getline(cin, input);
+
+    string original = removePunctuation(input);
+    string reversed = original;
+    reverse(reversed.begin(), reversed.end());
+
+    printOriginalAndReversed(original, reversed);
+
+    if (isPalindrome(original)) {
+        cout << "The string is a palindrome." << endl;
+    } else {
+        cout << "The string is not a palindrome." << endl;
+    }
+
+    return 0;
+}
