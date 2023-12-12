@@ -1,0 +1,99 @@
+#include <iostream>
+#include <queue>
+
+struct Job {
+    int jobId;
+    std::string jobDescription;
+
+    // Constructor for Job
+    Job(int id, const std::string& description) : jobId(id), jobDescription(description) {}
+};
+
+class JobQueue {
+private:
+    std::queue<Job> jobs;
+
+public:
+    // Function to add a job to the queue
+    void addJob(const Job& job) {
+        jobs.push(job);
+        std::cout << "Job " << job.jobId << " added to the queue.\n";
+    }
+
+    // Function to delete a job from the queue
+    void deleteJob() {
+        if (!jobs.empty()) {
+            Job frontJob = jobs.front();
+            jobs.pop();
+            std::cout << "Job " << frontJob.jobId << " deleted from the queue.\n";
+        } else {
+            std::cout << "Queue is empty. No job to delete.\n";
+        }
+    }
+
+    // Function to display the current jobs in the queue
+    void displayJobs() {
+        std::cout << "Jobs in the queue:\n";
+        if (jobs.empty()) {
+            std::cout << "Queue is empty.\n";
+        } else {
+            std::queue<Job> tempQueue = jobs; // Create a temporary queue for display
+            while (!tempQueue.empty()) {
+                Job currentJob = tempQueue.front();
+                std::cout << "Job " << currentJob.jobId << ": " << currentJob.jobDescription << "\n";
+                tempQueue.pop();
+            }
+        }
+    }
+};
+
+int main() {
+    JobQueue jobQueue;
+    int choice;
+
+    do {
+        std::cout << "Job Queue Simulation\n";
+        std::cout << "1. Add Job\n";
+        std::cout << "2. Delete Job\n";
+        std::cout << "3. Display Jobs\n";
+        std::cout << "4. Exit\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                int jobId;
+                std::string jobDescription;
+
+                std::cout << "Enter Job ID: ";
+                std::cin >> jobId;
+
+                std::cout << "Enter Job Description: ";
+                std::cin.ignore(); // Clear the newline character from the buffer
+                std::getline(std::cin, jobDescription);
+
+                Job newJob(jobId, jobDescription);
+                jobQueue.addJob(newJob);
+                break;
+            }
+
+            case 2:
+                jobQueue.deleteJob();
+                break;
+
+            case 3:
+                jobQueue.displayJobs();
+                break;
+
+            case 4:
+                std::cout << "Exiting program.\n";
+                break;
+
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
